@@ -131,8 +131,11 @@
             // recipients field in the website’s UI.
             // populateRecipients(contacts);
             // $('#result').text(JSON.stringify(contact));
-            $('[name=nama_penerima]').val(contact[0].name[0]);
-            $('[name=no_penerima]').val(contact[0].tel[0]);
+            
+            let name = contact[0].name[0];
+            let tel = contact[0].tel[0];
+            $('[name=nama_penerima]').val(name.match(numberPattern).join(''));
+            $('[name=no_penerima]').val(tel.match(numberPattern).join(''));
         });
     </script>
 </body>
