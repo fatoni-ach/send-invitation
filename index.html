@@ -78,7 +78,7 @@
 
             let link = 'https://wa.me/6285606446756?text=Saya%20tertarik%20dengan%20aksesoris%20yang%20Anda%20jual';
 
-            let numberPattern = '/\d+/g';
+            let numberPattern = /\d+/g;
 
             let template = `Assalamualaikum wr. Wb \nKepada Yth, \n\nBapak/Ibu/Saudara/i\nMoch. Ubaidillah\nDi_Tempat\n\nTidak mengurangi rasa hormat kami mengundang dan Mohon kehadirannya pada acara resepsi pernikahan kami untuk memberikan Do'a dan Restu. \n\nMohon maaf dan pengertiannya apabila kami hanya bisa mengundang melalui link berikut`;
 
@@ -136,7 +136,7 @@
             // $('#result').text(JSON.stringify(contact));
             
             $('[name=nama_penerima]').val(name.replace('-', ''));
-            $('[name=no_penerima]').val(tel.replace('-', ''));
+            $('[name=no_penerima]').val(parseInt(tel.match(/\d+/gi).join('')));
         });
     </script>
 </body>
