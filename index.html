@@ -16,11 +16,11 @@
         <div class="d-flex row justify-content-center align-items-center">
             <div class="p-4">
                 <h2>Pengiriman Undangan</h2>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="nama_mempelai" class="form-label">Nama Mempelai</label>
                     <input type="text" class="form-control" id="nama_mempelai" name="nama_mempelai">
                     <div id="" class="form-text">Contoh : <strong>Muhammad Zainal & Anita</strong></div>
-                </div>
+                </div> -->
                 <div class="mb-3">
                     <label for="link_undangan" class="form-label">Link Undangan</label>
                     <input type="text" class="form-control" id="link_undangan" name="link_undangan">
@@ -48,8 +48,11 @@
                         <p><strong>[mempelai]</strong> : Nama Mempelai</p>
                     </div>
                 </div>
+
+                <button id="btn_import">Import</button>
                 <div class="mb-3 text-center">
-                    <button type="button" class="btn btn-success" onclick="send()"><i class="fa fa-whatsapp" aria-hidden="true"></i> Kirim Undangan</button>
+                    <button type="button" class="btn btn-success" onclick="send()"><i class="fa fa-whatsapp"
+                            aria-hidden="true"></i> Kirim Undangan</button>
                 </div>
             </div>
         </div>
@@ -63,13 +66,19 @@
         $(function () {
             let link = 'https://wa.me/6285606446756?text=Saya%20tertarik%20dengan%20aksesoris%20yang%20Anda%20jual';
 
-            let template = `Assalamualaikum Wr. Wb, \nKepada Yth Bapak/Ibu/Saudara/i [penerima]. \nTanpa mengurangi rasa hormat, izinkan kami mengundang bapak/ibu/saudara/i untuk hadir dan memberikan do'a restu pada acara pernikahan kami. \nlink undangan: [link_undangan]\n\nYang Berbahagia [mempelai]`;
+            let numberPattern = /\d+/g;
+
+            let template = `Assalamualaikum wr. Wb \nKepada Yth, \n\nBapak/Ibu/Saudara/i\nMoch. Ubaidillah\nDi_Tempat\n\nTidak mengurangi rasa hormat kami mengundang dan Mohon kehadirannya pada acara resepsi pernikahan kami untuk memberikan Do'a dan Restu. \n\nMohon maaf dan pengertiannya apabila kami hanya bisa mengundang melalui link berikut`;
 
             // $('[name=nama_mempelai]').val('Amira & Zaky');
             // $('[name=link_undangan]').val('https://myprint-webwed.com/choiri-dan-anin');
             // $('[name=nama_penerima]').val('Oyik Smile');
             // $('[name=no_penerima]').val('');
-            $('[name=template_undangan]').attr('placeholder', template);
+            $('[name=template_undangan]').val(template);
+
+            $('[name=no_penerima]').on('change', function () {
+                this.val().match(numberPattern).join('');
+            });
 
 
             window.send = function () {
@@ -78,12 +87,12 @@
                 let linkUndangan = $('[name=link_undangan]').val();
                 let namaMempelai = $('[name=nama_mempelai]').val();
                 let template_undangan = $('[name=template_undangan]').val();
-                
-                if(template_undangan != '' && template_undangan != null){
+
+                if (template_undangan != '' && template_undangan != null) {
                     template = $('[name=template_undangan]').val();
                 }
 
-                if(no_telepon.charAt(0) == '0'){
+                if (no_telepon.charAt(0) == '0') {
                     no_telepon = "62" + no_telepon.substring(1);
                 }
                 linkUndangan = linkUndangan + "?to=" + namaPenerima;
@@ -96,6 +105,20 @@
 
                 window.open(link, '_blank');
             }
+        });
+
+        $('#btn_import').on('click', async () => {
+            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: true});
+
+            if (!contacts.length) {
+                // No contacts were selected in the picker.
+                alert(contacts);
+                return;
+            }
+
+            // Use the names and e-mail addresses in |contacts| to populate the
+            // recipients field in the website’s UI.
+            // populateRecipients(contacts);
         });
     </script>
 </body>
