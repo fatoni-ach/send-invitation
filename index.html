@@ -136,7 +136,7 @@
             // $('#result').text(JSON.stringify(contact));
             
             $('[name=nama_penerima]').val(name.replace('-', ''));
-            $('[name=no_penerima]').val(parseString(tel.match(/\d+/gi).join('')));
+            $('[name=no_penerima]').val(String(tel.match(/\d+/gi).join('')));
         });
     </script>
 </body>
