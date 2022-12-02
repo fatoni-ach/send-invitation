@@ -29,8 +29,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="nama_penerima" class="form-label">Nama Penerima</label>
-                    <input type="text" class="form-control" id="nama_penerima" name="nama_penerima">
+                    <div class="input-group">
+                        <button id="btn_import" class="btn btn-outline-secondary" type="button" id="button-addon1">Contact</button>
+                        <input type="text" class="form-control" id="nama_penerima" name="nama_penerima">
+                    </div>
                     <div id="" class="form-text">Contoh : <strong>Burhan</strong></div>
+                </div>
+                <div class="mb-3">
                 </div>
                 <div class="mb-3">
                     <label for="no_penerima" class="form-label">Nomor Penerima</label>
@@ -48,8 +53,6 @@
                         <p><strong>[mempelai]</strong> : Nama Mempelai</p>
                     </div>
                 </div>
-
-                <button id="btn_import">Import</button>
                 <div class="mb-3 text-center">
                     <button type="button" class="btn btn-success" onclick="send()"><i class="fa fa-whatsapp"
                             aria-hidden="true"></i> Kirim Undangan</button>
@@ -64,6 +67,12 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(function () {
+            let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+            if (!isMobile) {
+                $('#btn_import').hide();
+            }
+
             let link = 'https://wa.me/6285606446756?text=Saya%20tertarik%20dengan%20aksesoris%20yang%20Anda%20jual';
 
             let numberPattern = /\d+/g;
@@ -108,18 +117,18 @@
         });
 
         $('#btn_import').on('click', async () => {
-            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: true});
+            const contact = await navigator.contacts.select(['name', 'tel'], {multiple: false});
 
-            if (!contacts.length) {
+            if (!contact.length) {
                 // No contacts were selected in the picker.
-                alert(contacts);
                 return;
             }
 
             // Use the names and e-mail addresses in |contacts| to populate the
             // recipients field in the website’s UI.
             // populateRecipients(contacts);
-            alert(contacts);
+            $('[name=nama_penerima]').val(contact.name[0]);
+            $('[name=no_penerima]').val(contact.tel[0]);
         });
     </script>
 </body>
