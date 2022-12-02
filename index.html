@@ -130,7 +130,7 @@
             // Use the names and e-mail addresses in |contacts| to populate the
             // recipients field in the website’s UI.
             // populateRecipients(contacts);
-            $('#result').text(contact);
+            $('#result').text(JSON.stringify(contact));
             $('[name=nama_penerima]').val(contact.name[0]);
             $('[name=no_penerima]').val(contact.tel[0]);
         });
