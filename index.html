@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim Undangan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex row justify-content-center align-items-center">
+            <div class="p-4">
+                <h2>Pengiriman Undangan</h2>
+                <div class="mb-3">
+                    <label for="nama_mempelai" class="form-label">Nama Mempelai</label>
+                    <input type="text" class="form-control" id="nama_mempelai" name="nama_mempelai">
+                    <div id="" class="form-text">Contoh : <strong>Muhammad Zainal & Anita</strong></div>
+                </div>
+                <div class="mb-3">
+                    <label for="link_undangan" class="form-label">Link Undangan</label>
+                    <input type="text" class="form-control" id="link_undangan" name="link_undangan">
+                    <div id="" class="form-text">Contoh : <strong>https://myprint-webwed.com/choiri-dan-anin</strong>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="nama_penerima" class="form-label">Nama Penerima</label>
+                    <input type="text" class="form-control" id="nama_penerima" name="nama_penerima">
+                    <div id="" class="form-text">Contoh : <strong>Burhan</strong></div>
+                </div>
+                <div class="mb-3">
+                    <label for="no_penerima" class="form-label">Nomor Penerima</label>
+                    <input type="text" class="form-control" id="no_penerima" name="no_penerima">
+                    <div id="" class="form-text">Contoh : <strong>6285654543***</strong></div>
+                </div>
+                <div class="mb-3">
+                    <label for="template_undangan" class="form-label">Template Undangan</label>
+                    <textarea class="form-control" id="template_undangan" rows="5" name="template_undangan"></textarea>
+                    <div id="" class="form-text">
+                        <p>Isi template untuk mengubah kalimat undangan</p>
+                        <p>Note : </p>
+                        <p><strong>[penerima]</strong> : Nama Penerima</p>
+                        <p><strong>[link_undangan]</strong> : Link Undangan</p>
+                        <p><strong>[mempelai]</strong> : Nama Mempelai</p>
+                    </div>
+                </div>
+                <div class="mb-3 text-center">
+                    <button type="button" class="btn btn-success" onclick="send()"><i class="fa fa-whatsapp" aria-hidden="true"></i> Kirim Undangan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function () {
+            let link = 'https://wa.me/6285606446756?text=Saya%20tertarik%20dengan%20aksesoris%20yang%20Anda%20jual';
+
+            let template = `Assalamualaikum Wr. Wb, \nKepada Yth Bapak/Ibu/Saudara/i [penerima]. \nTanpa mengurangi rasa hormat, izinkan kami mengundang bapak/ibu/saudara/i untuk hadir dan memberikan do'a restu pada acara pernikahan kami. \nlink undangan: [link_undangan]\n\nYang Berbahagia [mempelai]`;
+
+            // $('[name=nama_mempelai]').val('Amira & Zaky');
+            // $('[name=link_undangan]').val('https://myprint-webwed.com/choiri-dan-anin');
+            // $('[name=nama_penerima]').val('Oyik Smile');
+            // $('[name=no_penerima]').val('');
+            $('[name=template_undangan]').attr('placeholder', template);
+
+
+            window.send = function () {
+                let no_telepon = $('[name=no_penerima]').val();
+                let namaPenerima = $('[name=nama_penerima]').val();
+                let linkUndangan = $('[name=link_undangan]').val();
+                let namaMempelai = $('[name=nama_mempelai]').val();
+                let template_undangan = $('[name=template_undangan]').val();
+                
+                if(template_undangan != '' && template_undangan != null){
+                    template = $('[name=template_undangan]').val();
+                }
+
+                if(no_telepon.charAt(0) == '0'){
+                    no_telepon = "62" + no_telepon.substring(1);
+                }
+                linkUndangan = linkUndangan + "?to=" + namaPenerima;
+
+                template = template.replace("[penerima]", $("[name=nama_penerima]").val());
+                template = template.replace("[link_undangan]", linkUndangan);
+                template = template.replace("[mempelai]", namaMempelai);
+
+                link = `https://wa.me/` + no_telepon + `?text=` + encodeURIComponent(template);
+
+                window.open(link, '_blank');
+            }
+        });
+    </script>
+</body>
+
+</html>
