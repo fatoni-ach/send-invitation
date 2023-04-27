@@ -42,7 +42,7 @@
                     <input type="text" class="form-control" id="no_penerima" name="no_penerima">
                     <div id="" class="form-text">Contoh : <strong>6285654543***</strong></div>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="template_undangan" class="form-label">Template Undangan</label>
                     <textarea class="form-control" id="template_undangan" rows="5" name="template_undangan"></textarea>
                     <div id="" class="form-text">
@@ -52,7 +52,7 @@
                         <p><strong>[link_undangan]</strong> : Link Undangan</p>
                         <p><strong>[mempelai]</strong> : Nama Mempelai</p>
                     </div>
-                </div>
+                </div> -->
                 <div class="mb-3 text-center">
                     <button type="button" class="btn btn-success" onclick="send()"><i class="fa fa-whatsapp"
                             aria-hidden="true"></i> Kirim Undangan</button>
@@ -80,8 +80,7 @@
 
             let numberPattern = /\d+/g;
 
-            let template = `Assalamualaikum wr. Wb \nKepada Yth, \n\nBapak/Ibu/Saudara/i\nMoch. Ubaidillah\nDi_Tempat\n\nTidak mengurangi rasa hormat kami mengundang dan Mohon kehadirannya pada acara resepsi pernikahan kami untuk memberikan Do'a dan Restu. \n\nMohon maaf dan pengertiannya apabila kami hanya bisa mengundang melalui link berikut`;
-
+            let template = `Kami mengundangmu, silahkan klik link undangan dibawah ini, terima kasih.\n\n [link_undangan] \n\n Mohon maaf karena kendala waktu dengan kesibukan dan jarak kami tidak bisa mengundangmu secara langsung. Terima kasih`;
             // $('[name=nama_mempelai]').val('Amira & Zaky');
             // $('[name=link_undangan]').val('https://myprint-webwed.com/choiri-dan-anin');
             // $('[name=nama_penerima]').val('Oyik Smile');
@@ -91,7 +90,6 @@
             $('[name=no_penerima]').on('change', function () {
                 this.val().match(numberPattern).join('');
             });
-
 
             window.send = function () {
                 let no_telepon = $('[name=no_penerima]').val();
