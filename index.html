@@ -105,7 +105,7 @@
                 if (no_telepon.charAt(0) == '0') {
                     no_telepon = "62" + no_telepon.substring(1);
                 }
-                linkUndangan = linkUndangan + "?to=" + namaPenerima;
+                linkUndangan = linkUndangan + "?to=" + encodeURIComponent(namaPenerima);
 
                 template = template.replace("[penerima]", $("[name=nama_penerima]").val());
                 template = template.replace("[link_undangan]", linkUndangan);
